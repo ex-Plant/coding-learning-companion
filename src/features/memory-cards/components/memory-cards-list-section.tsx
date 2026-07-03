@@ -6,6 +6,7 @@ import { MemoryCardsList } from '@/features/memory-cards/components/memory-cards
 import { DUE_OPTIONS, FSRS_STATE_LABELS, MATURITY_OPTIONS } from '@/features/memory-cards/constants'
 import { getMemoryCardsList, type CardFilterOptsT } from '@/features/memory-cards/queries'
 import { SubjectFilter } from '@/features/subjects/components/subject-filter'
+import { NO_SUBJECT_LABEL, NO_SUBJECT_VALUE } from '@/features/subjects/constants'
 import { getSubjects } from '@/features/subjects/queries'
 import { buildPaginationMeta } from '@/lib/utils/pagination'
 import { pluralize } from '@/lib/utils/pluralize'
@@ -26,7 +27,10 @@ export async function MemoryCardsListSection({ filters, page, limit }: PropsT) {
     getSubjects(),
     getMemoryCardsList({ ...filters, page, limit }),
   ])
-  const options = subjects.map((subject) => ({ value: subject.id, label: subject.title }))
+  const options = [
+    ...subjects.map((subject) => ({ value: subject.id, label: subject.title })),
+    { value: NO_SUBJECT_VALUE, label: NO_SUBJECT_LABEL },
+  ]
   const isFiltered =
     (filters.subjectIds?.length ?? 0) > 0 ||
     Boolean(filters.q) ||

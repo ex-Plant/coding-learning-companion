@@ -8,6 +8,7 @@ import { runTableQuery } from '@/lib/supabase/run-table-query'
 import { searchOr } from '@/lib/supabase/search-filter'
 import { createClient } from '@/lib/supabase/create-server-client'
 import type { Database } from '@/lib/supabase/types'
+import { applySubjectIdFilter } from '@/features/subjects/subject-id-filter'
 import { pageRange } from '@/lib/utils/pagination'
 
 // RLS scopes to owner — no user_id filter. Omits content intentionally (list-card columns only). Injectable client for E2E isolation.
@@ -24,9 +25,7 @@ export async function getNotes(
     let query = supabase
       .from('notes')
       .select('id, title, created_at, subjects(title)', { count: 'exact', head })
-    if (opts?.subjectIds && opts.subjectIds.length > 0) {
-      query = query.in('subject_id', opts.subjectIds)
-    }
+    query = applySubjectIdFilter(query, opts?.subjectIds)
     if (orFilter) query = query.or(orFilter)
     return query
   }

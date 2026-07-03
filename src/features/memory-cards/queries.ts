@@ -14,6 +14,7 @@ import type {
   MemoryCardWithSourceT,
 } from '@/features/memory-cards/types'
 import { cardOverviewSchema } from '@/features/memory-cards/schemas'
+import { applySubjectIdFilter } from '@/features/subjects/subject-id-filter'
 import { runMaybeSingle } from '@/lib/supabase/run-maybe-single'
 import { runPaginatedQuery } from '@/lib/supabase/run-paginated-query'
 import { runRpc } from '@/lib/supabase/run-rpc'
@@ -47,9 +48,7 @@ function applyCardFilters<T extends PostgrestFilterBuilder<any, any, any, any>>(
   query: T,
   opts?: CardFilterOptsT,
 ): T {
-  if (opts?.subjectIds && opts.subjectIds.length > 0) {
-    query = query.in('subject_id', opts.subjectIds)
-  }
+  query = applySubjectIdFilter(query, opts?.subjectIds)
   if (opts?.states && opts.states.length > 0) query = query.in('state', opts.states)
   if (opts?.maturity?.length === 1) {
     query =

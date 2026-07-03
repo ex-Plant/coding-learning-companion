@@ -7,6 +7,7 @@ import { NotesList } from '@/features/notes/components/notes-list'
 import { getNotes } from '@/features/notes/queries'
 import { LoadSampleDataButton } from '@/features/sample-data/components/load-sample-data-button'
 import { SubjectFilter } from '@/features/subjects/components/subject-filter'
+import { NO_SUBJECT_LABEL, NO_SUBJECT_VALUE } from '@/features/subjects/constants'
 import { getSubjects } from '@/features/subjects/queries'
 import { buildPaginationMeta, parsePagination } from '@/lib/utils/pagination'
 import { pluralize } from '@/lib/utils/pluralize'
@@ -27,7 +28,10 @@ export default async function NotesPage({
     getNotes({ subjectIds: selectedIds, q, page, limit }),
   ])
   const isFiltered = selectedIds.length > 0 || Boolean(q)
-  const options = subjects.map((subject) => ({ value: subject.id, label: subject.title }))
+  const options = [
+    ...subjects.map((subject) => ({ value: subject.id, label: subject.title })),
+    { value: NO_SUBJECT_VALUE, label: NO_SUBJECT_LABEL },
+  ]
   const paginationMeta = buildPaginationMeta(total, page, limit)
 
   return (
