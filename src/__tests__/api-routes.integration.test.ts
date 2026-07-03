@@ -543,7 +543,7 @@ describe.skipIf(!RUN)('token API routes (integration)', () => {
     const afterMove = (await (
       await noteIdGET(getReq(u.token, `/api/notes/${noteId}`), idCtx(noteId))
     ).json()) as { cards: unknown[] }
-    expect(afterMove.cards).toHaveLength(0) // unlinked
+    expect(afterMove.cards).toHaveLength(0)
     const bySubject = (await (
       await cardsGET(getReq(u.token, `/api/memory-cards?subject=${targetSubjectId}`))
     ).json()) as { cards: { id: string }[] }

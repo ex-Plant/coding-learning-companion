@@ -15,7 +15,6 @@ import {
 import { ResponsivePopover } from '@/components/ui/responsive-popover'
 import { cn } from '@/lib/utils'
 
-// Local to this primitive — no external consumer; callers pass plain `{value,label}` literals.
 type ComboboxOptionT = { value: string; label: string }
 
 type ComboboxPropsT = {

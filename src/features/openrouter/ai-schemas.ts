@@ -28,7 +28,6 @@ export const generatedCardsSchema = z.object({
   cards: z.array(generatedCardSchema).describe('Recall cards covering the key ideas.'),
 })
 
-// gen-notes: a note is a title + markdown content.
 export const generatedNoteSchema = z.object({
   title: z.string().describe('A short, descriptive title for the note.'),
   content: z.string().describe('The note body in Markdown, covering one distinct topic.'),

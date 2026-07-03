@@ -12,7 +12,6 @@ import { getCurrentUser } from '@/lib/supabase/get-current-user'
 import { Suspense } from 'react'
 import { WelcomeDialogServer } from '@/features/dashboard/components/welcome-dialog-server'
 
-// em-dash when there's no data yet (null fraction).
 function percentage(fraction: number | null) {
   return fraction === null ? '—' : `${Math.round(fraction * 100)}%`
 }
@@ -26,7 +25,6 @@ export default async function DashboardPage() {
     weeks: 53,
   })
 
-  // Rendered as a 2×2 grid; cull a line to drop a tile.
   const tiles = [
     { label: 'Due today', value: dueToday, sub: 'memory cards ready to review' },
     { label: 'Overdue', value: stats.overdue, sub: 'cards past their due date' },

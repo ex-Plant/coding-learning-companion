@@ -24,7 +24,6 @@ export function buildHeatmapMatrix(
 
   const todayMs = utcMidnight(opts.today)
   const todayWeekday = new Date(todayMs).getUTCDay()
-  // Sunday of the current (rightmost) week, then back up to the first column's Sunday.
   const lastColumnSunday = todayMs - todayWeekday * MS_PER_DAY
   const firstColumnSunday = lastColumnSunday - (weeks - 1) * 7 * MS_PER_DAY
 
@@ -46,7 +45,6 @@ export function buildHeatmapMatrix(
       cells.push({ date, count, level: countToLevel(count) })
     }
 
-    // Label a column when its first day's month differs from the previous column's.
     const columnMonth = new Date(columnSunday).getUTCMonth()
     const monthLabel = columnMonth !== prevMonth ? MONTHS[columnMonth] : null
     prevMonth = columnMonth

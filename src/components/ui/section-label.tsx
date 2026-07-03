@@ -2,8 +2,7 @@ import type { ReactNode } from 'react'
 
 import { cn } from '@/lib/utils'
 
-// Small uppercase muted caption above a stat, chart, or control group. Renders a `<p>` by default;
-// pass `as="span"` for inline use (e.g. a label beside a button row).
+// Renders a `<p>` by default; pass `as="span"` for inline use (e.g. a label beside a button row).
 type SectionLabelPropsT = {
   children: ReactNode
   className?: string

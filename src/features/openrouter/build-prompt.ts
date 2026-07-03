@@ -18,7 +18,7 @@ import {
 function stripDuplicateTitleHeading(title: string, content: string): string {
   const lines = content.split('\n')
   let i = 0
-  while (i < lines.length && lines[i].trim() === '') i++ // skip leading blank lines
+  while (i < lines.length && lines[i].trim() === '') i++
   const heading = lines[i]?.match(/^#{1,6}\s+(.*)$/)
   if (heading && heading[1].trim() === title.trim()) {
     return lines

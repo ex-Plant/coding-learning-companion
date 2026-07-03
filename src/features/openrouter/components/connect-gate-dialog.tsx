@@ -14,8 +14,6 @@ import {
 } from '@/components/ui/alert-dialog'
 import { ConnectOpenRouterButton } from '@/features/openrouter/components/connect-openrouter-button'
 
-// Shown when an AI feature is used while OpenRouter is not connected. "Connect" submits the same
-// connect Server Action used on /settings (redirects to OpenRouter's OAuth page); "Cancel" dismisses.
 export function ConnectGateDialog({
   open,
   onOpenChange,

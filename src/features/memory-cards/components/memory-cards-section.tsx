@@ -37,7 +37,6 @@ export function MemoryCardsSection({
   const rows: NoteCardRowT[] = cards.map((card) => ({
     card,
     answer: card.example ? (
-      // Separator divides the question from its answer; gap-4 keeps the body from crowding it.
       <div className="flex flex-col gap-2">
         <Separator />
         <RenderMarkdown content={card.example} />

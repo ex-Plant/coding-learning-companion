@@ -8,7 +8,6 @@ import type { SubjectOptionT } from '@/features/subjects/types'
 const NO_SUBJECT = 'none'
 
 type CardSubjectFieldPropsT = {
-  // The owning form field's name — ties the Label to the Combobox.
   id: string
   value: string | null
   onChange: (subjectId: string | null) => void

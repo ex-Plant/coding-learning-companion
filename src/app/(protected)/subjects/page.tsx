@@ -4,11 +4,8 @@ import { EmptyState } from '@/components/ui/empty-state'
 import { getSubjectsWithFirstNote } from '@/features/subjects/queries'
 import { SubjectPicker } from '@/features/subjects/components/subject-picker'
 
-// Landing page for the Subjects nav tab: a picker, not a redirect. It used to bounce into the first
-// subject (which itself redirected to its first note) — two chained server redirects that flashed
-// three loading fallbacks. Now it renders a select and lets the user choose; the options carry each
-// subject's first note id so a pick lands straight on the note (one hop, not two). `delete-subject`
-// also lands here, so deleting the current subject drops you on the picker rather than auto-advancing.
+// The options carry each subject's first note id so it is opened by default. `delete-subject` also
+// lands here, so a delete drops you on the picker.
 export default async function SubjectsPage() {
   const subjects = await getSubjectsWithFirstNote()
 

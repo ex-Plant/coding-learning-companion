@@ -31,7 +31,6 @@ export function useCardForm(card?: MemoryCardT) {
     setPendingValues(undefined)
     if (card) {
       const result = await updateMemoryCard(card.id, values)
-      // Stay on this edit page — just confirm via toast.
       reportResult(result, { successMessage: 'Card saved' })
       return
     }
@@ -61,7 +60,6 @@ export function useCardForm(card?: MemoryCardT) {
     formError,
     clearError,
     isNavigating,
-    // Truthy while the unlink confirm dialog should be open.
     pendingValues,
     confirmSubmit: () => {
       if (pendingValues) void submitCard(pendingValues)

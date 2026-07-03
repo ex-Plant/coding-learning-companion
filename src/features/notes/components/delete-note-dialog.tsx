@@ -6,13 +6,12 @@ import { useActionTransition } from '@/hooks/use-action-transition'
 import { useActionNavigation } from '@/hooks/use-action-navigation'
 
 // Controlled (`noteId` non-null → open) so a single instance can serve a whole list, not one
-// Radix tree per row. On success the dialog client-navigates to `redirectTo`; a failure keeps the
-// dialog open + shows the error.
+// Radix tree per row.
 type DeleteNoteDialogPropsT = {
   noteId: string | null
   onOpenChange: (open: boolean) => void
   // Post-delete destination (client-known) — the subject view passes /subjects/[id] so the docs
-  // context survives the delete; defaults to the notes list.
+  // context survives the delete.
   redirectTo?: string
 }
 

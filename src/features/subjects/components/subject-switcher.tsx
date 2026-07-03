@@ -7,8 +7,6 @@ import type { SubjectOptionT } from '@/features/subjects/types'
 
 type SubjectSwitcherPropsT = { subjects: SubjectOptionT[]; currentId: string }
 
-// Navigation control (not a form field): a value-bound Combobox of all subjects; picking one
-// soft-navigates to its detail. Replaces the old /subjects list as the way to move between subjects.
 export function SubjectSwitcher({ subjects, currentId }: SubjectSwitcherPropsT) {
   const router = useRouter()
 

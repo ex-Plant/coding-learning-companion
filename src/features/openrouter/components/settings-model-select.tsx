@@ -7,8 +7,6 @@ import { Label } from '@/components/ui/label'
 import { ModelSelect } from '@/features/openrouter/components/model-select'
 import { setOpenRouterModel } from '@/features/openrouter/actions/set-model'
 
-// Settings default-model picker. Persists on change (optimistic local value, reverts on failure);
-// this is the model used for all AI generation unless the generate dialog overrides it per-run.
 export function SettingsModelSelect({ defaultModel }: { defaultModel: string }) {
   const [model, setModel] = useState(defaultModel)
   const [isSaving, startSave] = useTransition()

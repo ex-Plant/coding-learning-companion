@@ -8,7 +8,6 @@ import { Textarea } from '@/components/ui/textarea'
 import type { PdfSourceT } from '@/features/import/types'
 import { isPdfFile, readFileAsBase64 } from '@/features/import/utils/read-file-base64'
 
-// Three read sources: markdown/txt file (File API → text), paste textarea, and PDF (base64 for AI vision).
 export function SourceInput({
   value,
   onChange,

@@ -3,12 +3,9 @@ import type { ReactNode } from 'react'
 
 import { cn } from '@/lib/utils'
 
-// Small muted label chip used for subject/tag names. Read-only by default (a `<span>`); pass
-// `onRemove` to get the closeable form (a `<button>` with a trailing X) used by filter chips.
 type PillPropsT = {
   children: ReactNode
   className?: string
-  // When set, renders the closeable button form; `removeLabel` is the X button's aria-label.
   onRemove?: () => void
   removeLabel?: string
 }

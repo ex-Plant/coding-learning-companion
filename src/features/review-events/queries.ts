@@ -52,7 +52,7 @@ export async function getReviewDayCounts(
 // Today's distinct-card count + the trailing-week event total, for the goal-crossing check in
 // rateMemoryCard. One windowed RPC call feeds both — the 8-day `since` just needs to cover today +
 // the trailing week (the day-bucketing is done in APP_TIME_ZONE server-side, so there's no skew to
-// buffer against). Replaces the old pair of buffered fetch-all reads.
+// buffer against).
 export async function getReviewCounts(
   client?: SupabaseClient<Database>,
 ): Promise<{ today: number; week: number }> {

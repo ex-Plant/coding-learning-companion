@@ -8,9 +8,7 @@ import { createClient } from '@/lib/supabase/create-server-client'
 import { validateInput } from '@/lib/validate'
 import type { RedirectResultT } from '@/types/action'
 
-// Cookie-client entry point for the create-note form. The actual note+cards write lives in
-// insertNoteWithCards (shared with POST /api/notes); here we just validate, run it, and return the
-// new note's id (server-born) so the form client-navigates to it and the loader shows.
+// Cookie-client entry point; the note+cards write lives in insertNoteWithCards (shared with POST /api/notes).
 export async function createNote(input: unknown): Promise<RedirectResultT> {
   const parsed = validateInput(createNoteWithCardsSchema, input)
   if (!parsed.success) return parsed

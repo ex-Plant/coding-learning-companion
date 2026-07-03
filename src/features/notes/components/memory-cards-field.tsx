@@ -17,9 +17,8 @@ import type { StagedCardInputT } from '@/features/notes/schemas'
 // Blank optional fields are coerced to null server-side by the schema's `optionalText` transform.
 const EMPTY_CARD: StagedCardInputT = { prompt: '', example: '' }
 
-// Inline memory-card staging for the create-note form: an array field where each row collects a
-// recall question + optional example/code-context, saved atomically with the note. Edit mode
-// manages cards on the detail page instead, so this is only mounted when creating.
+// Cards staged here save atomically with the note. Edit mode manages cards on the detail page
+// instead, so this is only mounted when creating.
 //
 // `defaultValues` is type-only (withForm never runs it) — it mirrors the NoteForm's shape so the
 // injected `form` is typed against the same fields.

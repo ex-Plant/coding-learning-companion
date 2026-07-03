@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils'
 
-// Local to this primitive — no external consumer.
 type GoalBarVariantT = 'aurora' | 'fuchsia' | 'mono' | 'white'
 
 type PropsT = {

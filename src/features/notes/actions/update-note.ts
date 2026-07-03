@@ -8,9 +8,7 @@ import { createClient } from '@/lib/supabase/create-server-client'
 import { validateInput } from '@/lib/validate'
 import type { ActionResultT } from '@/types/action'
 
-// Cookie-client entry point for the note edit form. The patch/subject-change/card fan-out logic lives
-// in updateNoteCore (shared with PATCH /api/notes/:id); this wrapper validates, then revalidates and
-// returns a redirect result so the form client-navigates (and the destination loader shows).
+// Cookie-client entry point; the patch/subject-change/card fan-out lives in updateNoteCore (shared with PATCH /api/notes/:id).
 export async function updateNote(
   id: string,
   input: unknown,

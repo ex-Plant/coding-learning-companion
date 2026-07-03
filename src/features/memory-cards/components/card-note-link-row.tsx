@@ -17,9 +17,6 @@ type CardNoteLinkRowPropsT = {
   subjects: SubjectOptionT[]
 }
 
-// The card's note-link status row. A linked card shows its source note + Unlink; an unlinked one shows
-// "No source note" + Link. `sourceNote` is present iff `note_id` is set, so the two are mutually
-// exclusive. Linking refreshes the page, replacing the Link row with the Unlink row.
 export function CardNoteLinkRow({ card, sourceNote, subjects }: CardNoteLinkRowPropsT) {
   const router = useRouter()
   const { isPending: isUnlinking, run: runUnlink } = useActionTransition()

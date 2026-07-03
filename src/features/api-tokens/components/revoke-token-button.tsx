@@ -5,9 +5,8 @@ import { revokeApiToken } from '@/features/api-tokens/actions/revoke-api-token'
 
 type RevokeTokenButtonPropsT = { tokenId: string; tokenName: string }
 
-// Thin client wrapper so the server-rendered list can render a per-row confirm + revoke. Reuses
-// DeleteButton (its own confirm dialog + action transition); revoke returns ActionResultT and
-// revalidatePath drops the row, so no onSuccess callback is needed.
+// Thin client wrapper so the server-rendered list can render a per-row confirm + revoke. revoke
+// returns ActionResultT and revalidatePath drops the row, so no onSuccess callback is needed.
 export function RevokeTokenButton({ tokenId, tokenName }: RevokeTokenButtonPropsT) {
   return (
     <DeleteButton

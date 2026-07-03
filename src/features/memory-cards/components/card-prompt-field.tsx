@@ -17,10 +17,9 @@ type CardPromptFieldPropsT = {
   placeholder?: string
 }
 
-// The Question field for a memory card: label + an autosizing Textarea (not an Input, so long AI
-// questions show in full instead of clipping — rows=1 + min-h-0 hugs a one-liner) + inline error.
-// gap-2 keeps the label close to its field, matching CardExampleField and FormTextarea. Plain
-// value/onChange so it drops into a form field or a controlled candidate row alike.
+// An autosizing Textarea, not an Input, so long AI questions show in full instead of clipping
+// (rows=1 + min-h-0 hugs a one-liner). Plain value/onChange so it drops into a form field or a
+// controlled candidate row alike.
 export function CardPromptField({
   value,
   onChange,

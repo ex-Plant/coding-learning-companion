@@ -7,9 +7,7 @@ type SettingsSectionPropsT = {
   title: string
   description: ReactNode
   children: ReactNode
-  // 'danger' tints the border + title for destructive actions (e.g. account deletion).
   variant?: 'default' | 'danger'
-  // Extra classes on the <section> — e.g. the AI section's `gradient-border` accent.
   className?: string
 }
 

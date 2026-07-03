@@ -45,7 +45,6 @@ export function ImportPanel({
   // Whether OpenRouter is connected. The AI decompose control (#3) is always shown alongside the
   // split (#4); when not connected, the dialog intercepts with the connect gate.
   aiEnabled?: boolean
-  // The user's persisted default model, pre-selected in the generate dialog.
   defaultModel: string
 }) {
   const [text, setText] = useState('')

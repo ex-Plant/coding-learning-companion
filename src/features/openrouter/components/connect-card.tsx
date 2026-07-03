@@ -3,8 +3,6 @@ import { ConnectOpenRouterButton } from '@/features/openrouter/components/connec
 import { SettingsModelSelect } from '@/features/openrouter/components/settings-model-select'
 import { Button } from '@/components/ui/button'
 
-// The API key is never rendered — connect redirects to OAuth; disconnect deletes the credential row
-// and revalidates. When connected, the model picker persists the default model for all AI generation.
 export function ConnectCard({
   connected,
   defaultModel,

@@ -10,7 +10,7 @@ import type { PromptT } from '@/features/openrouter/types'
 import type { GenerateResultT } from '@/features/openrouter/types'
 
 // Shared ungrounded "generate from a topic" control (#2 card / #5 note). Collapses to just the
-// GenerateDialog trigger; the topic <textarea> now lives INSIDE the dialog (rendered as its children).
+// GenerateDialog trigger; the topic <textarea> lives INSIDE the dialog (rendered as its children).
 // The topic state stays here so previewInput/action update reactively as the user types — the dialog
 // owns no source of its own. The caller supplies the action and an onResult that maps the first
 // generated item into its own form fields (the only real variation between card and note).

@@ -10,8 +10,8 @@ import { mintApiToken } from '@/features/api-tokens/actions/mint-api-token'
 import { TokenRevealDialog } from '@/features/api-tokens/components/token-reveal-dialog'
 import { tokenNameFieldSchema } from '@/features/api-tokens/schemas'
 
-// Name + create a token. On success the raw value is captured into state (the only place it ever
-// lives) to drive the show-once reveal modal; on failure the error renders inline via useFormError.
+// On success the raw value is captured into state — the only place it ever lives — to drive the
+// show-once reveal modal.
 export function MintTokenForm() {
   const { formError, clearError, reportResult } = useFormError()
   const [rawToken, setRawToken] = useState<string | null>(null)

@@ -58,7 +58,6 @@ export function GeneratedCardsReview({
         ))}
       </ul>
       <FormError message={error} />
-      {/* mb-4 sets the gap before the existing-cards list below the review panel. */}
       <div className="mb-4 flex gap-2">
         <Button
           type="button"

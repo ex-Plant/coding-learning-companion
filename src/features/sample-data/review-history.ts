@@ -52,9 +52,8 @@ export function generateReviewHistory(
       const roll = rand(d + 100)
       if (roll < 0.3)
         count = 0 // ~30% rest days → a believable, non-uniform heatmap
-      else if (roll < 0.7)
-        count = 1 + Math.floor(rand(d + 200) * 5) // light days
-      else count = 6 + Math.floor(rand(d + 300) * 12) // busier days
+      else if (roll < 0.7) count = 1 + Math.floor(rand(d + 200) * 5)
+      else count = 6 + Math.floor(rand(d + 300) * 12)
     }
     count = Math.min(count, cardIds.length)
 

@@ -65,8 +65,7 @@ function ChoiceToggle({
   )
 }
 
-// Per-card Move/Unlink decision dialog shown when a note's subject changes and it has linked
-// cards. Move keeps a card linked (preserving the invariant that a linked card shares its note's
+// Move keeps a card linked (preserving the invariant that a linked card shares its note's
 // subject); Unlink drops the link. Mounted only while a decision is pending, so its choices state
 // starts fresh each time.
 export function MoveLinkedCardsDialog({

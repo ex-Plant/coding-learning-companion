@@ -11,7 +11,6 @@ type SubjectFilterPropsT = {
   triggerClassName?: string
 }
 
-// Subject ("topic") filter entry point; delegates to the generic URL-driven multiselect.
 export function SubjectFilter({ options, selectedIds, triggerClassName }: SubjectFilterPropsT) {
   return (
     <UrlMultiSelectFilter

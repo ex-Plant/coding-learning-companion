@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 
 import { Button } from '@/components/ui/button'
 
-// Shared empty-state panel. Omit `action` for filtered/"no match" states; pass it for "nothing here yet".
+// Omit `action` for filtered/"no match" states; pass it for "nothing here yet".
 type EmptyStatePropsT = {
   message: ReactNode
   action?: { label: string; href: string; variant?: 'default' | 'outline' }

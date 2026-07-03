@@ -5,9 +5,7 @@ import { z } from 'zod'
 import { getNotesForLinking } from '@/features/notes/queries'
 import { validateInput } from '@/lib/validate'
 
-// Exposes getNotesForLinking to the client link dialog (queries are server-only — same pattern as
-// generateCards reached from the topic generator). `subjectId` is null (unfiled notes) or a subject
-// guid; shape-only validation, RLS owns ownership. Bad input → empty list (no notes to offer).
+// Server-Action wrapper because queries are server-only; shape-only validation, RLS owns ownership.
 const subjectFilterSchema = z.guid('Invalid subject id').nullable()
 
 export async function getNotesForLinkingAction(

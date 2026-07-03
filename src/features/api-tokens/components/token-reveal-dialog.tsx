@@ -20,9 +20,8 @@ type TokenRevealDialogPropsT = {
   onClose: () => void
 }
 
-// Shows a freshly-minted token exactly once. There is no precedent for clipboard/reveal in the repo,
-// so this is built from the shadcn primitives. The token is never re-fetchable — closing this dialog
-// is the user's only chance to copy it, which the copy explains.
+// The token is never re-fetchable — closing this dialog is the user's only chance to copy it, which
+// the copy explains.
 export function TokenRevealDialog({ rawToken, onClose }: TokenRevealDialogPropsT) {
   const [copied, setCopied] = useState(false)
 

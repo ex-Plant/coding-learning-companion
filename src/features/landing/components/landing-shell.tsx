@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ElementType } from 'react'
 import { cn } from '@/lib/utils'
 
 type LandingShellPropsT = {
-  // Landing sections vary their wrapper element (section / nav / div). Defaults to <section>.
+  // Landing sections vary their wrapper element (section / nav / div).
   as?: ElementType
 } & ComponentPropsWithoutRef<'section'>
 

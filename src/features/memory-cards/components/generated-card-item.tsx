@@ -14,9 +14,6 @@ type GeneratedCardItemPropsT = {
   onAdd: () => void
 }
 
-// One editable candidate in the AI review list, boxed in the brand gradient-border (green→cyan) so
-// each card reads as AI-generated content. gap-4 spaces the Question from the Answer editor; each
-// field owns its own label→control gap-2.
 export function GeneratedCardItem({
   card,
   promptError,

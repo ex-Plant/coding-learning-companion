@@ -20,7 +20,7 @@ type PropsT = {
   backLabel?: string
   // Navigate browser history (router.back) instead of backHref; falls back to backHref/'/' on a deep link with no history.
   backHistory?: boolean
-  // Inner width within the container-shell cap: 'full' fills it, 'prose' = max-w-2xl, 'wide' = max-w-4xl.
+  // Inner width within the container-shell cap; WIDTH_CLASS maps each value.
   width?: WidthT
   children: ReactNode
 }
@@ -31,7 +31,7 @@ const WIDTH_CLASS: Record<WidthT, string> = {
   wide: 'mx-auto w-full max-w-4xl',
 }
 
-// Shared layout wrapper for every protected page; the mount fade+slide honors prefers-reduced-motion → opacity-only.
+// The mount fade+slide honors prefers-reduced-motion → opacity-only.
 export function PageShell({
   title,
   eyebrow,

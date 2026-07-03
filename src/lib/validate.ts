@@ -1,6 +1,5 @@
 import type { ZodType } from 'zod'
 
-// Safe-parse against a Zod schema, flattening to the first error message.
 export function validateInput<T>(
   schema: ZodType<T>,
   data: unknown,

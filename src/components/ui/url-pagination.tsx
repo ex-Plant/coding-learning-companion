@@ -24,7 +24,7 @@ type UrlPaginationPropsT = {
 }
 
 // hrefs are built with buildUrlWithParams so `q`/`subjects` ride along and `page` drops on page 1.
-// Reads the live query string so links reflect current filters. Renders nothing for a single page.
+// Reads the live query string so links reflect current filters.
 export function UrlPagination({
   currentPage,
   totalPages,
