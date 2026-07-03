@@ -1,10 +1,10 @@
 ---
 change_id: note-detail-consolidation
 title: In-place note edit and streamed memory cards in the subject note pane
-status: implemented
+status: archived
 created: 2026-07-03
 updated: 2026-07-03
-archived_at: null
+archived_at: 2026-07-03T14:40:46Z
 ---
 
 ## Notes
