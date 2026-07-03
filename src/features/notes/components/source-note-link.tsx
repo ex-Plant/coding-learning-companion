@@ -1,4 +1,5 @@
 import { ContextLink } from '@/components/ui/context-link'
+import { noteHref } from '@/features/notes/utils/note-href'
 
 type PropsT = {
   noteId: string
@@ -10,7 +11,7 @@ type PropsT = {
 }
 
 export function SourceNoteLink({ noteId, subjectId, title, className }: PropsT) {
-  const href = subjectId ? `/subjects/${subjectId}/${noteId}` : `/notes/${noteId}`
+  const href = noteHref(noteId, subjectId)
   return (
     <ContextLink href={href} className={className}>
       From: {title}

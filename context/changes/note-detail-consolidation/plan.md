@@ -205,9 +205,9 @@ None — no schema or data changes.
 
 #### Automated
 
-- [x] 2.1 Type checking passes: `pnpm typecheck`
-- [x] 2.2 Linting passes: `pnpm lint`
-- [x] 2.3 Suite passes: `pnpm test`
+- [x] 2.1 Type checking passes: `pnpm typecheck` — b55e6e1
+- [x] 2.2 Linting passes: `pnpm lint` — b55e6e1
+- [x] 2.3 Suite passes: `pnpm test` — b55e6e1
 
 #### Manual
 

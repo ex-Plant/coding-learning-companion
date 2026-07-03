@@ -17,6 +17,7 @@ import {
   MoveLinkedCardsDialog,
   type LinkedCardT,
 } from '@/features/notes/components/move-linked-cards-dialog'
+import { noteHref } from '@/features/notes/utils/note-href'
 import { titleSchema } from '@/features/notes/schemas'
 import type { CreateNoteWithCardsT, NoteInputT, StagedCardInputT } from '@/features/notes/schemas'
 import {
@@ -136,10 +137,7 @@ export function NoteForm(props: NoteFormPropsT) {
     setPendingInput(undefined)
     const result = await props.action(props.note.id, noteInput, cardActions)
     if (result.success && props.followNoteOnSave) {
-      const savedHref = noteInput.subject_id
-        ? `/subjects/${noteInput.subject_id}/${props.note.id}`
-        : `/notes/${props.note.id}`
-      navigate(savedHref, 'note-saved')
+      navigate(noteHref(props.note.id, noteInput.subject_id ?? null), 'note-saved')
       return
     }
     reportResult(result, { successMessage: 'Note saved' })

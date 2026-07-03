@@ -1,17 +1,15 @@
-import { Suspense } from 'react'
 import { PageShell } from '@/components/layout/page-shell'
-import { RenderMarkdown } from '@/components/markdown/render-markdown'
 import { ButtonLink } from '@/components/ui/button-link'
 import { ContextLink } from '@/components/ui/context-link'
-import { Separator } from '@/components/ui/separator'
-import { Spinner } from '@/components/ui/spinner'
 import { updateNote } from '@/features/notes/actions/update-note'
 import { DeleteNoteButton } from '@/features/notes/components/delete-note-button'
 import { NoteForm } from '@/features/notes/components/note-form'
+import { NoteReadBody } from '@/features/notes/components/note-read-body'
 import { getNote } from '@/features/notes/queries'
+import { noteHref } from '@/features/notes/utils/note-href'
+import { toLinkedCards } from '@/features/notes/utils/to-linked-cards'
 import { getSubjects } from '@/features/subjects/queries'
 import { getMemoryCardsForNote } from '@/features/memory-cards/queries'
-import { NoteMemoryCards } from '@/features/memory-cards/components/note-memory-cards'
 import { assertFound } from '@/lib/assert-found'
 import { formatLocaleDateTime } from '@/lib/utils/date'
 
@@ -45,9 +43,7 @@ export default async function NotePage({
       title={isEditingNote ? 'Edit note' : (note.title ?? 'Untitled')}
       eyebrow={
         !isEditingNote && subject ? (
-          <ContextLink href={`/subjects/${subject.id}/${note.id}`}>
-            Open in {subject.title}
-          </ContextLink>
+          <ContextLink href={noteHref(note.id, subject.id)}>Open in {subject.title}</ContextLink>
         ) : undefined
       }
       subtitle={isEditingNote ? undefined : `Updated ${formatLocaleDateTime(note.updated_at)}`}
@@ -77,21 +73,11 @@ export default async function NotePage({
           action={updateNote}
           note={note}
           subjects={subjects}
-          linkedCards={(memoryCards ?? []).map((c) => ({ id: c.id, prompt: c.prompt }))}
+          linkedCards={toLinkedCards(memoryCards)}
         />
       ) : (
         <div className="flex flex-col gap-4">
-          <RenderMarkdown content={note.content} />
-
-          <Separator variant="ai" className="neon-glow" />
-
-          <Suspense fallback={<Spinner className="size-8" />}>
-            <NoteMemoryCards
-              noteId={note.id}
-              noteTitle={note.title}
-              noteContent={note.content ?? ''}
-            />
-          </Suspense>
+          <NoteReadBody note={note} />
         </div>
       )}
     </PageShell>

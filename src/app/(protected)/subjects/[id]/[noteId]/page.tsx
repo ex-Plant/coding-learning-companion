@@ -1,22 +1,19 @@
-import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 
-import { RenderMarkdown } from '@/components/markdown/render-markdown'
 import { ButtonLink } from '@/components/ui/button-link'
-import { Separator } from '@/components/ui/separator'
-import { Spinner } from '@/components/ui/spinner'
-import { NoteMemoryCards } from '@/features/memory-cards/components/note-memory-cards'
 import { getMemoryCardsForNote } from '@/features/memory-cards/queries'
 import { updateNote } from '@/features/notes/actions/update-note'
 import { DeleteNoteButton } from '@/features/notes/components/delete-note-button'
 import { NoteForm } from '@/features/notes/components/note-form'
+import { NoteReadBody } from '@/features/notes/components/note-read-body'
 import { getNote } from '@/features/notes/queries'
+import { toLinkedCards } from '@/features/notes/utils/to-linked-cards'
 import { getSubjects } from '@/features/subjects/queries'
 
 // getNote is RLS-scoped so a missing/not-owned id 404s; the subject_id guard also 404s a note
 // reached via the wrong subject path. `?edit=note` swaps the form in place (same param as
 // /notes/[id]); cards are fetched eagerly only in edit mode (for NoteForm's linkedCards) and
-// streamed via <NoteMemoryCards> otherwise so the note body paints first.
+// streamed via <NoteReadBody> otherwise so the note body paints first.
 export default async function SubjectReadNote({
   params,
   searchParams,
@@ -64,23 +61,11 @@ export default async function SubjectReadNote({
           action={updateNote}
           note={note}
           subjects={subjects ?? []}
-          linkedCards={(memoryCards ?? []).map((c) => ({ id: c.id, prompt: c.prompt }))}
+          linkedCards={toLinkedCards(memoryCards)}
           followNoteOnSave
         />
       ) : (
-        <>
-          <RenderMarkdown content={note.content} />
-
-          <Separator variant="ai" className="neon-glow" />
-
-          <Suspense fallback={<Spinner className="size-8" />}>
-            <NoteMemoryCards
-              noteId={note.id}
-              noteTitle={note.title}
-              noteContent={note.content ?? ''}
-            />
-          </Suspense>
-        </>
+        <NoteReadBody note={note} />
       )}
     </article>
   )
