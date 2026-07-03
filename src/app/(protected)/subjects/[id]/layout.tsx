@@ -60,14 +60,10 @@ export default async function SubjectLayout({
 
       <Separator className="my-2" />
 
-      {/* Track priority: the content node is the capped minmax track, the sidebar is the fr track.
-          Grid maximizes non-fr tracks (the node, up to 64rem) BEFORE expanding fr tracks (the
-          sidebar), so the node grows first and never shrinks below 36rem; the sidebar only widens
-          past 15rem once the node has hit its ceiling. The WHOLE PAGE scrolls (window) — the note
-          body scrolls with it, footer comes after. The topic list is sticky (self-start so it isn't
-          stretched), pinned just below the sticky AppNav (top-20 ≈ its 77px band); its own overflow
-          only kicks in for a list taller than the viewport. */}
-      <div className="grid gap-6 md:grid-cols-[minmax(15rem,1fr)_minmax(36rem,64rem)]">
+      {/* Keep the content-track min at 0: a grid-track min is a hard floor that overrides min-w-0,
+          and any nonzero floor + sidebar + gap overflows <main>'s overflow-x-clip near the md
+          breakpoint, clipping the note body. Sidebar is sticky (self-start). */}
+      <div className="grid gap-6 md:grid-cols-[minmax(15rem,1fr)_minmax(0,64rem)]">
         {/* `relative` + inner-nav scroll (not wrapper scroll) so the bottom fade pins to the
             viewport edge instead of scrolling away — same trick as the AppNav top fade, mirrored.
             The fade itself is rendered by SubjectNoteSidebar, gated on actual overflow. */}
