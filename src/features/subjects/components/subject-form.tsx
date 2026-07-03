@@ -11,8 +11,8 @@ import type { SubjectT } from '@/types/subject'
 import type { ActionResultT, RedirectResultT } from '@/types/action'
 
 // `subject` present → edit (action takes the id); absent → create. The union prop lets TS narrow
-// the action signature off `subject`'s truthiness. On success the form client-navigates: edit → back
-// to this subject (client-known id); create → the new subject's server-born id via RedirectResultT.
+// the action signature off `subject`'s truthiness. On success: edit stays in place and toasts "Subject
+// saved"; create client-navigates to the new subject's server-born id via RedirectResultT.
 type SubjectFormPropsT =
   | { action: (input: SubjectInputT) => Promise<RedirectResultT>; subject?: undefined }
   | { action: (id: string, input: SubjectInputT) => Promise<ActionResultT>; subject: SubjectT }

@@ -1,9 +1,8 @@
 import { z } from 'zod'
 
-// Plain schema source — no side effects, no `import 'server-only'`. This is the one module both
-// the client/server env entries AND next.config.ts can import: next.config validates the server
-// vars via `serverSchema.parse(process.env)` at build start without ever touching the server-only
-// `env.server.ts` module (which is unresolvable outside Next's app compilation).
+// Plain schema source — no side effects, no `import 'server-only'`. Both the client (`env.ts`) and
+// server (`env.server.ts`) env entries import these schemas; the eager parse in `env.server.ts` is
+// pulled into the root layout, so a missing/malformed server var fails `next build`.
 //
 // Var names mirror the portfolio repo so existing SMTP values copy over 1:1. The sender/from
 // address is public there (`NEXT_PUBLIC_EMAIL_USER`); only host/pass/to are secret.
@@ -27,8 +26,8 @@ export const clientSchema = z.object({
 export const serverSchema = z.object({
   EMAIL_HOST: z.string().min(1),
   // Signs the short-lived user JWT the token API mints (mint-user-jwt.ts) so an `egg_` request runs
-  // under RLS. next.config.ts runs serverSchema.parse at build/dev-start, so a missing secret fails
-  // fast there instead of as an opaque runtime 500 from a token API call. HS256 secrets are ≥ 32 chars.
+  // under RLS. The root layout's eager env.server parse runs serverSchema at build start, so a missing
+  // secret fails fast there instead of as an opaque runtime 500 from a token API call. HS256 secrets ≥ 32 chars.
   SUPABASE_JWT_SECRET: z.string().min(32),
   EMAIL_PASS: z.string().min(1),
   EMAIL_TO: z.email(),

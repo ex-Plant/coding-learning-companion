@@ -7,8 +7,8 @@ import { DeleteNoteDialog } from '@/features/notes/components/delete-note-dialog
 
 type DeleteNoteButtonPropsT = { id: string; redirectTo?: string }
 
-// `redirectTo` forwards to the action — the subject view passes its /subjects/[id] so the docs
-// context survives the delete.
+// `redirectTo` forwards to DeleteNoteDialog, which owns post-delete navigation — the subject view
+// passes its /subjects/[id] so the docs context survives the delete.
 export function DeleteNoteButton({ id, redirectTo }: DeleteNoteButtonPropsT) {
   const [open, setOpen] = useState(false)
 

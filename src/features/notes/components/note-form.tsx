@@ -53,8 +53,8 @@ type NoteFormPropsT =
 export function NoteForm(props: NoteFormPropsT) {
   const { note } = props
   const { formError, clearError, reportResult } = useFormError()
-  // Navigate on success: create → the new note's server-born id; edit → back to this note. isNavigating
-  // keeps the submit button pending through the destination render.
+  // On success: create navigates to the new note's server-born id (isNavigating keeps the submit button
+  // pending through the destination render); edit stays in place and toasts "Note saved".
   const { isNavigating, navigate } = useActionNavigation()
   // Holds the edit input while the move/unlink dialog is open; the dialog's choices resume submit.
   const [pendingInput, setPendingInput] = useState<NoteInputT | undefined>(undefined)
