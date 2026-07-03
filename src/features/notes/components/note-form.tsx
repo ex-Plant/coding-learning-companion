@@ -48,13 +48,19 @@ type NoteFormPropsT =
       subjects: SubjectOptionT[]
       note: NoteT
       linkedCards: LinkedCardT[]
+      // When true, redirect after a successful edit (follow-the-note) instead of the default
+      // stay-and-toast. A serializable flag rather than a callback because a Server Component can't
+      // pass a function to this client component. Covers the move path too, since the move/unlink
+      // dialog routes through submitEdit.
+      followNoteOnSave?: boolean
     }
 
 export function NoteForm(props: NoteFormPropsT) {
   const { note } = props
   const { formError, clearError, reportResult } = useFormError()
-  // On success: create navigates to the new note's server-born id (isNavigating keeps the submit button
-  // pending through the destination render); edit stays in place and toasts "Note saved".
+  // On success: create navigates to the new note's server-born id, and edit navigates too when
+  // followNoteOnSave is set; otherwise edit stays in place and toasts "Note saved". isNavigating
+  // keeps the submit button pending through the destination render.
   const { isNavigating, navigate } = useActionNavigation()
   // Holds the edit input while the move/unlink dialog is open; the dialog's choices resume submit.
   const [pendingInput, setPendingInput] = useState<NoteInputT | undefined>(undefined)
@@ -129,6 +135,13 @@ export function NoteForm(props: NoteFormPropsT) {
     if (!props.note) return
     setPendingInput(undefined)
     const result = await props.action(props.note.id, noteInput, cardActions)
+    if (result.success && props.followNoteOnSave) {
+      const savedHref = noteInput.subject_id
+        ? `/subjects/${noteInput.subject_id}/${props.note.id}`
+        : `/notes/${props.note.id}`
+      navigate(savedHref, 'note-saved')
+      return
+    }
     reportResult(result, { successMessage: 'Note saved' })
   }
 

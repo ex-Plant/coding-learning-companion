@@ -190,24 +190,24 @@ None — no schema or data changes.
 
 #### Automated
 
-- [x] 1.1 Type checking passes: `pnpm typecheck`
-- [x] 1.2 Linting passes: `pnpm lint`
-- [x] 1.3 Suite passes: `pnpm test`
+- [x] 1.1 Type checking passes: `pnpm typecheck` — cdeb165
+- [x] 1.2 Linting passes: `pnpm lint` — cdeb165
+- [x] 1.3 Suite passes: `pnpm test` — cdeb165
 
 #### Manual
 
-- [x] 1.4 `/notes/[id]` read view streams cards after the note body
-- [x] 1.5 `/notes/[id]?edit=note` shows form only; Save toasts "Note saved"
-- [x] 1.6 Subjectless note still opens/edits at `/notes/[id]`
-- [x] 1.7 No regression in AI card generation / add-card
+- [x] 1.4 `/notes/[id]` read view streams cards after the note body — cdeb165
+- [x] 1.5 `/notes/[id]?edit=note` shows form only; Save toasts "Note saved" — cdeb165
+- [x] 1.6 Subjectless note still opens/edits at `/notes/[id]` — cdeb165
+- [x] 1.7 No regression in AI card generation / add-card — cdeb165
 
 ### Phase 2: Enrich the subject note pane
 
 #### Automated
 
-- [ ] 2.1 Type checking passes: `pnpm typecheck`
-- [ ] 2.2 Linting passes: `pnpm lint`
-- [ ] 2.3 Suite passes: `pnpm test`
+- [x] 2.1 Type checking passes: `pnpm typecheck`
+- [x] 2.2 Linting passes: `pnpm lint`
+- [x] 2.3 Suite passes: `pnpm test`
 
 #### Manual
 
