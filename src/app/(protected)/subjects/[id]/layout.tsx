@@ -43,9 +43,8 @@ export default async function SubjectLayout({
       }
       width="full"
     >
-      {/* Full-width toolbar: select on the left, subject/note actions pushed to the right edge.
-          Lives here (not PageShell's header) because that header column hugs its content, so
-          justify-between there can't spread. */}
+      {/* Lives here, not PageShell's header, because that header column hugs its content — so
+          justify-between there can't spread the actions to the right edge. */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <SubjectSwitcher subjects={subjects} currentId={id} />
         <div className="flex flex-wrap items-center gap-2">

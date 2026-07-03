@@ -14,10 +14,9 @@ import type { MemoryCardListItemT } from '@/features/memory-cards/types'
 import { memoryCardEditHref } from '@/features/memory-cards/utils'
 import type { SubjectOptionT } from '@/features/subjects/types'
 
-// Thin client wrapper over the shared AnimatedCardList — client only so it can hand render
-// functions to the list; data is fetched on the server and passed in. `subjects` feeds the per-row
-// Link dialog (shown only for unlinked cards). No card-body link: the whole card no longer
-// navigates — the per-card Review button selects it for the in-place panel instead.
+// Client only so it can hand render functions to AnimatedCardList. `subjects` feeds the per-row Link
+// dialog (unlinked cards only). No card-body link — the per-card Review button selects the card for
+// the in-place panel instead.
 export function MemoryCardsList({
   cards,
   subjects,

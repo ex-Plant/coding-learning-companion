@@ -14,9 +14,8 @@ type PropsT = {
   scrollOnMount: boolean
 }
 
-// The /memory-cards review area — the empty-deck gate + the ReviewPanel/ReviewCardTransition JSX,
-// extracted from the page. Presentational: the page resolves the card and passes it in, so this
-// stays render-only (no data fetching, not streamed — it's primary content).
+// Presentational — the page resolves the card and passes it in. Deliberately not streamed: the card
+// is primary content, not deferrable.
 export function ReviewPanelSection({
   card,
   goal,

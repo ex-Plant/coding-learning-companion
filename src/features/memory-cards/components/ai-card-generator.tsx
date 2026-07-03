@@ -23,12 +23,8 @@ type AiCardGeneratorPropsT = {
   onReviewingChange?: (reviewing: boolean) => void
 }
 
-// #1 grounded gen-cards: generate recall cards from the note's prose via the shared GenerateDialog
-// (model select + prompt preview + tokens; also handles the connect gate), then review/edit the
-// candidates before committing — nothing persists until the user saves. noteTitle/noteContent are
-// the already-loaded note text, passed in so the prompt preview needs no extra fetch; generateCards
-// still re-fetches server-side for its RLS trust boundary. This owns only the candidate lifecycle;
-// the review UI lives in GeneratedCardsReview.
+// Nothing persists until the user saves. noteTitle/noteContent are passed in so the prompt preview
+// needs no extra fetch, but generateCards still re-fetches server-side for its RLS trust boundary.
 export function AiCardGenerator({
   noteId,
   noteTitle,

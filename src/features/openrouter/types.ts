@@ -6,11 +6,9 @@ export type UsageT = {
   totalTokens: number | undefined
 }
 
-// Always-on generation debug: the exact prompt sent + the token usage. Surfaced in the generate
-// dialog and written to the local ai-debug log. Not gated — present on every successful call.
+// Present on every successful generate call (not gated). Surfaced in the generate dialog + ai-debug log.
 export type GenerateDebugT = { system: string; prompt: string; model: string; usage: UsageT }
 
-// Distinct from ActionResultT — carries a typed data payload.
 export type GenerateResultT<T> =
   | { success: true; data: T; debug: GenerateDebugT }
   | { success: false; error: string }
