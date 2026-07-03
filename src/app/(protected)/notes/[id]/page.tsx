@@ -1,17 +1,17 @@
+import { Suspense } from 'react'
 import { PageShell } from '@/components/layout/page-shell'
 import { RenderMarkdown } from '@/components/markdown/render-markdown'
 import { ButtonLink } from '@/components/ui/button-link'
 import { ContextLink } from '@/components/ui/context-link'
 import { Separator } from '@/components/ui/separator'
+import { Spinner } from '@/components/ui/spinner'
 import { updateNote } from '@/features/notes/actions/update-note'
 import { DeleteNoteButton } from '@/features/notes/components/delete-note-button'
 import { NoteForm } from '@/features/notes/components/note-form'
 import { getNote } from '@/features/notes/queries'
 import { getSubjects } from '@/features/subjects/queries'
 import { getMemoryCardsForNote } from '@/features/memory-cards/queries'
-import { MemoryCardsSection } from '@/features/memory-cards/components/memory-cards-section'
-import { PromptDefaultsProvider } from '@/features/openrouter/components/prompt-defaults-context'
-import { getOpenRouterStatus, getResolvedSystemPrompts } from '@/features/openrouter/queries'
+import { NoteMemoryCards } from '@/features/memory-cards/components/note-memory-cards'
 import { assertFound } from '@/lib/assert-found'
 import { formatLocaleDateTime } from '@/lib/utils/date'
 
@@ -27,17 +27,16 @@ export default async function NotePage({
 }) {
   const { id } = await params
   const { edit } = await searchParams
-  const [note, memoryCards, subjects, { connected: aiEnabled, defaultModel }, systemDefaults] =
-    await Promise.all([
-      getNote(id),
-      getMemoryCardsForNote(id),
-      getSubjects(),
-      getOpenRouterStatus(),
-      getResolvedSystemPrompts(),
-    ])
+  const isEditingNote = edit === 'note'
+  // Cards only feed the edit form's move/unlink dialog (linkedCards) — read mode streams them
+  // separately via <NoteMemoryCards>, so the eager fetch is edit-only.
+  const [note, subjects, memoryCards] = await Promise.all([
+    getNote(id),
+    getSubjects(),
+    isEditingNote ? getMemoryCardsForNote(id) : undefined,
+  ])
   assertFound(note)
 
-  const isEditingNote = edit === 'note'
   const subject = note.subject_id ? subjects.find((s) => s.id === note.subject_id) : undefined
 
   return (
@@ -78,26 +77,23 @@ export default async function NotePage({
           action={updateNote}
           note={note}
           subjects={subjects}
-          linkedCards={memoryCards.map((c) => ({ id: c.id, prompt: c.prompt }))}
+          linkedCards={(memoryCards ?? []).map((c) => ({ id: c.id, prompt: c.prompt }))}
         />
       ) : (
         <div className="flex flex-col gap-4">
           <RenderMarkdown content={note.content} />
+
+          <Separator variant="ai" className="neon-glow" />
+
+          <Suspense fallback={<Spinner className="size-8" />}>
+            <NoteMemoryCards
+              noteId={note.id}
+              noteTitle={note.title}
+              noteContent={note.content ?? ''}
+            />
+          </Suspense>
         </div>
       )}
-
-      <Separator variant="ai" className="neon-glow" />
-
-      <PromptDefaultsProvider value={systemDefaults}>
-        <MemoryCardsSection
-          noteId={note.id}
-          noteTitle={note.title}
-          noteContent={note.content ?? ''}
-          cards={memoryCards}
-          aiEnabled={aiEnabled}
-          defaultModel={defaultModel}
-        />
-      </PromptDefaultsProvider>
     </PageShell>
   )
 }
