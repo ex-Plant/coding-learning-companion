@@ -5,7 +5,7 @@ import { CODE_LINES, TOKEN_COLOR } from '@/features/landing/landing-code-preview
 
 export function LandingCodePreview() {
   return (
-    <LandingShell className={`flex max-w-3xl flex-col gap-8 overflow-x-hidden`}>
+    <LandingShell className="flex max-w-3xl flex-col gap-8 overflow-x-hidden">
       <div className="text-center">
         <p className="text-neon-cyan inline-flex items-center gap-1.5 font-mono text-xs">
           <Code2 className="size-4" />

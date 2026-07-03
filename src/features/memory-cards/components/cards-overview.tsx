@@ -15,7 +15,7 @@ type PropsT = { overview: CardOverviewT }
 export function CardsOverview({ overview }: PropsT) {
   const stateCounts = FSRS_STATE_LABELS.map((_, state) => overview.byState[state] ?? 0)
   const mature = overview.mature
-  if (overview.total < 1) return <></>
+  if (overview.total < 1) return null
   return (
     <TitledCard title="Cards overview">
       <div className="grid gap-4 sm:grid-cols-2">

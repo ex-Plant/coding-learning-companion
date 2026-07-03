@@ -10,7 +10,7 @@ import { AiCardGenerator } from '@/features/memory-cards/components/ai-card-gene
 // note view loads no CodeMirror chunk. A successful add and "Hide" both fire `onClose`, collapsing
 // back to the button (unmounting the editor).
 
-type MemoryCardsSectionPropsT = {
+type AddMemoryCardPropsT = {
   noteId: string
   noteTitle: string | null
   noteContent: string
@@ -23,7 +23,7 @@ export function AddMemoryCard({
   noteContent,
   connected,
   defaultModel,
-}: MemoryCardsSectionPropsT) {
+}: AddMemoryCardPropsT) {
   const [open, setOpen] = useState(false)
   // Hide the manual "Add card" button while the AI review panel is up — it renders its own
   // "Add N cards" action, so two competing add buttons would show side by side.
@@ -31,7 +31,7 @@ export function AddMemoryCard({
 
   if (!open) {
     return (
-      <div className={`flex items-center gap-2`}>
+      <div className="flex items-center gap-2">
         {!reviewing && (
           <Button variant="outline" className="self-start" onClick={() => setOpen(true)}>
             Add card
