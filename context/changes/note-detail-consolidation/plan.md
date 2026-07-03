@@ -211,10 +211,10 @@ None — no schema or data changes.
 
 #### Manual
 
-- [ ] 2.4 Pane read view streams cards after the note body
-- [ ] 2.5 Edit-in-place (`?edit=note`) + Cancel work without leaving the subject
-- [ ] 2.6 Plain edit + Save returns to read view, content updated
-- [ ] 2.7 Move to another subject → dialog → follow-the-note + old sidebar drops it
-- [ ] 2.8 Move to None → lands on `/notes/<id>`
-- [ ] 2.9 Delete from pane → returns to `/subjects/[id]`
-- [ ] 2.10 `/notes/[id]` unchanged (prop omitted → stay-in-place toast)
+- [x] 2.4 Pane read view streams cards after the note body — b55e6e1
+- [x] 2.5 Edit-in-place (`?edit=note`) + Cancel work without leaving the subject — b55e6e1
+- [x] 2.6 Plain edit + Save returns to read view, content updated — b55e6e1
+- [x] 2.7 Move to another subject → dialog → follow-the-note + old sidebar drops it — b55e6e1
+- [x] 2.8 Move to None → lands on `/notes/<id>` — b55e6e1
+- [x] 2.9 Delete from pane → returns to `/subjects/[id]` — b55e6e1
+- [x] 2.10 `/notes/[id]` unchanged (prop omitted → stay-in-place toast) — b55e6e1
