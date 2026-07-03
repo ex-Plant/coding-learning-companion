@@ -13,7 +13,7 @@
   content: none;
 }
 
-/* Let wide GFM tables scroll horizontally instead of clipping on narrow (mobile) viewports. */
+/* Let wide GFM tables scroll horizontally instead of clipping */
 .prose table {
   display: block;
   width: max-content;
