@@ -8,7 +8,7 @@ import '@/lib/env'
 import '@/lib/env.server'
 import { ActionToast } from '@/components/action-toast'
 import { ToastProvider } from '@/components/toast-provider'
-import { BRAND_DARK } from '@/components/brand/brand-colors'
+import { DARK_SURFACE } from '@/components/logo/logo-colors'
 import { APPLE_SPLASH_SCREENS } from './apple-splash'
 
 const geistSans = Geist({
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: BRAND_DARK,
+  themeColor: DARK_SURFACE,
   // Shrink the LAYOUT viewport when the soft keyboard opens (instead of the default overlay). Keeps
   // `position: fixed` bottom-anchored UI — the mobile combobox/multi-select Sheet — above the keyboard
   // so its search input stays visible; also stops focused inputs anywhere from being hidden behind it.
@@ -61,7 +61,7 @@ export default function RootLayout({
       // `.dark { color-scheme; --background }` rules are render-blocking but still resolve a beat after
       // the HTML — in that gap the UA paints its default WHITE canvas (the intro flash). Setting both
       // here, in the initial markup, removes that pre-stylesheet white frame and inter-page blanks.
-      style={{ colorScheme: 'dark', backgroundColor: BRAND_DARK }}
+      style={{ colorScheme: 'dark', backgroundColor: DARK_SURFACE }}
       className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">

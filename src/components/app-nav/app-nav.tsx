@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 
-import { BrandMark } from '@/components/brand/brand-mark'
+import { LogoLink } from '@/components/logo/logo-link'
 import { SignOutButton } from '@/features/auth/components/sign-out-button'
 import { NavConnectButton } from '@/features/openrouter/components/nav-connect-button'
 import { NavCredits } from '@/features/openrouter/components/nav-credits'
@@ -18,11 +18,11 @@ export async function AppNav() {
       <header className="header-fade pointer-events-none sticky top-0 z-40 hidden pb-12 md:block">
         <div className="container-shell pointer-events-auto flex items-center justify-between gap-2 py-4">
           <div className="flex items-center gap-1">
-            <BrandMark
+            <LogoLink
               href="/dashboard"
               aria-label="eggplant_notes — dashboard"
               className="focus-ring rounded-md"
-              wordmarkClassName="hidden"
+              nameClassName="hidden"
               animated
             />
             <nav className="flex items-center gap-1">
@@ -50,11 +50,11 @@ export async function AppNav() {
       <div className="header-fade pointer-events-none fixed inset-x-0 top-0 z-40 h-24 md:hidden" />
 
       {/* Mobile-only fixed brand, mirroring the floating hamburger on the right — the logo is the dashboard link. */}
-      <BrandMark
+      <LogoLink
         href="/dashboard"
         aria-label="eggplant_notes — dashboard"
         className="focus-ring fixed top-4 left-4 z-50 flex size-8 items-center justify-center rounded-md md:hidden"
-        wordmarkClassName="hidden"
+        nameClassName="hidden"
       />
       <CurrentPageLabel />
       <MobileNav

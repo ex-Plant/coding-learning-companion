@@ -1,5 +1,5 @@
 // Geometry for the brand mark — the hand-drawn aubergine dot grid, coloured top→bottom along the
-// neon brand ramp. Single source shared by the on-screen <BrandLogo> and the favicon (app/icon.tsx),
+// neon brand ramp. Single source shared by the on-screen <Logo> and the favicon (app/icon.tsx),
 // so reshaping the mark in one place updates both.
 
 // '1' = a lit dot. Edit here to reshape the mark.
@@ -38,15 +38,15 @@ function sampleRamp(t: number) {
   return `rgb(${m(a.r, b.r)}, ${m(a.g, b.g)}, ${m(a.b, b.b)})`
 }
 
-export type BrandDotT = { cx: number; cy: number; r: number; fill: string }
+export type LogoDotT = { cx: number; cy: number; r: number; fill: string }
 
 const rows = GRID.length
 const cols = GRID[0].length
 
 export const VIEWBOX = { width: (cols + 1) * GAP, height: (rows + 1) * GAP }
 
-export function buildBrandDots(): BrandDotT[] {
-  const dots: BrandDotT[] = []
+export function buildLogoDots(): LogoDotT[] {
+  const dots: LogoDotT[] = []
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       if (GRID[r][c] !== '1') continue

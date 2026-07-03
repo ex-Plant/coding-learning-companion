@@ -2,35 +2,35 @@
 
 import { motion } from 'framer-motion'
 
-import { AnimatedBrandLogo } from './animated-brand-logo'
-import { useBrandIntro, WORDMARK } from './brand-intro-context'
+import { AnimatedLogo } from './animated-logo'
+import { useIntro, APP_NAME } from './intro-context'
 
-// Where the splash lockup lands. Drop this on any page wrapped in <BrandIntroProvider>; it consumes the
-// intro phase and renders the logo + wordmark as a placeholder → morph target → settled mark. Sizes are
+// Where the splash lands. Drop this on any page wrapped in <IntroProvider>; it consumes the intro
+// phase and renders the logo + app name as a placeholder → morph target → settled mark. Sizes are
 // per-page (the hero is bigger than the auth mark), so they're props rather than baked in.
 
-// Decelerating glide (easeOutExpo) shared by logo + wordmark so the lockup lands as one piece.
+// Decelerating glide (easeOutExpo) shared by logo + app name so the lockup lands as one piece.
 const MORPH_TRANSITION = { layout: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } } as const
 
-type BrandIntroLockupPropsT = {
+type LogoWithNamePropsT = {
   className?: string
   logoClassName?: string
-  wordmarkClassName?: string
+  nameClassName?: string
 }
 
-export function BrandIntroLockup({
+export function LogoWithName({
   className = 'flex flex-col items-center',
   logoClassName = 'size-20 sm:size-24',
-  wordmarkClassName = 'mt-3 font-mono text-lg font-semibold tracking-tight sm:text-xl',
-}: BrandIntroLockupPropsT) {
-  const phase = useBrandIntro()
+  nameClassName = 'mt-3 font-mono text-lg font-semibold tracking-tight sm:text-xl',
+}: LogoWithNamePropsT) {
+  const phase = useIntro()
 
   // Splash layer owns the visible lockup; reserve its footprint here so the page layout doesn't shift.
   if (phase === 'splash') {
     return (
       <div aria-hidden className={className}>
         <div className={logoClassName} />
-        <div className={`${wordmarkClassName} invisible`}>{WORDMARK}</div>
+        <div className={`${nameClassName} invisible`}>{APP_NAME}</div>
       </div>
     )
   }
@@ -41,18 +41,18 @@ export function BrandIntroLockup({
     return (
       <div className={className}>
         <motion.div
-          layoutId="brand-logo"
+          layoutId="logo"
           className={`relative z-50 ${logoClassName}`}
           transition={MORPH_TRANSITION}
         >
-          <AnimatedBrandLogo entrance={false} className="size-full" />
+          <AnimatedLogo entrance={false} className="size-full" />
         </motion.div>
         <motion.div
-          layoutId="brand-wordmark"
-          className={`relative z-50 ${wordmarkClassName}`}
+          layoutId="name"
+          className={`relative z-50 ${nameClassName}`}
           transition={MORPH_TRANSITION}
         >
-          {WORDMARK}
+          {APP_NAME}
         </motion.div>
       </div>
     )
@@ -62,8 +62,8 @@ export function BrandIntroLockup({
   if (phase === 'done') {
     return (
       <div className={className}>
-        <AnimatedBrandLogo entrance={false} className={logoClassName} />
-        <p className={wordmarkClassName}>{WORDMARK}</p>
+        <AnimatedLogo entrance={false} className={logoClassName} />
+        <p className={nameClassName}>{APP_NAME}</p>
       </div>
     )
   }
@@ -71,8 +71,8 @@ export function BrandIntroLockup({
   // idle (intro not yet decided) + skip (returning visitor / reduced motion): scatter in place.
   return (
     <div className={className}>
-      <AnimatedBrandLogo className={logoClassName} />
-      <p className={wordmarkClassName}>{WORDMARK}</p>
+      <AnimatedLogo className={logoClassName} />
+      <p className={nameClassName}>{APP_NAME}</p>
     </div>
   )
 }

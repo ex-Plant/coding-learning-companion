@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-import { BRAND_DARK } from '@/components/brand/brand-colors'
+import { DARK_SURFACE } from '@/components/logo/logo-colors'
 
 // Web App Manifest — makes the app installable and launches it standalone (no browser chrome).
 // Next auto-links this from <head> (rel="manifest"); no manual <link> needed. iOS ignores the icons
@@ -22,8 +22,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'AI powered notes with spaced-repetition recall cards.',
     start_url: '/dashboard',
     display: 'standalone',
-    background_color: BRAND_DARK,
-    theme_color: BRAND_DARK,
+    background_color: DARK_SURFACE,
+    theme_color: DARK_SURFACE,
     icons: icons.flatMap(({ src, sizes }) =>
       // Each size listed as both 'any' (generic) and 'maskable' (adaptive/circular masks); the icon
       // is rendered with safe-zone padding, so one image serves both purposes.

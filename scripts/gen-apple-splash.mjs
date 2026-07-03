@@ -19,10 +19,10 @@ import { dirname, resolve } from 'node:path'
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const SPLASH_DIR = resolve(ROOT, 'public/splash')
 
-// Single source for the colour — read the literal out of brand-colors.ts so this can't drift from it.
-const brandColors = readFileSync(resolve(ROOT, 'src/components/brand/brand-colors.ts'), 'utf8')
-const BRAND_DARK = brandColors.match(/BRAND_DARK\s*=\s*'(#[0-9a-fA-F]{3,8})'/)?.[1]
-if (!BRAND_DARK) throw new Error('Could not read BRAND_DARK from brand-colors.ts')
+// Single source for the colour — read the literal out of logo-colors.ts so this can't drift from it.
+const logoColors = readFileSync(resolve(ROOT, 'src/components/logo/logo-colors.ts'), 'utf8')
+const BRAND_DARK = logoColors.match(/DARK_SURFACE\s*=\s*'(#[0-9a-fA-F]{3,8})'/)?.[1]
+if (!BRAND_DARK) throw new Error('Could not read DARK_SURFACE from logo-colors.ts')
 
 // Logical (CSS) px portrait dimensions + device-pixel-ratio per iOS device family. iOS matches a
 // startup image by an EXACT media query on these logical sizes + ratio, so the matrix must be precise

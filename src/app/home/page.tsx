@@ -1,4 +1,4 @@
-import { BrandIntroProvider } from '@/components/brand/brand-intro-provider'
+import { IntroProvider } from '@/components/logo/intro-provider'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { LandingCodePreview } from '@/features/landing/components/landing-code-preview'
 import { LandingCta } from '@/features/landing/components/landing-cta'
@@ -8,7 +8,7 @@ import { LandingNav } from '@/features/landing/components/landing-nav'
 
 export default function LandingPage() {
   return (
-    <BrandIntroProvider>
+    <IntroProvider>
       <div className="flex min-h-svh flex-col">
         <LandingNav />
 
@@ -21,6 +21,6 @@ export default function LandingPage() {
 
         <SiteFooter />
       </div>
-    </BrandIntroProvider>
+    </IntroProvider>
   )
 }

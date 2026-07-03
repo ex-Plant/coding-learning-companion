@@ -3,17 +3,17 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
-import { AnimatedBrandLogo } from './animated-brand-logo'
-import { BrandIntroContext, WORDMARK, type BrandIntroPhaseT } from './brand-intro-context'
-import { IntroWordmark, wordmarkDurationMs } from './intro-wordmark'
+import { AnimatedLogo } from './animated-logo'
+import { IntroContext, APP_NAME, type IntroPhaseT } from './intro-context'
+import { IntroName, nameDurationMs } from './intro-name'
 
-// The splash plays in sequence: dots scatter/assemble, THEN the wordmark types out, THEN a beat to
+// The splash plays in sequence: dots scatter/assemble, THEN the app name types out, THEN a beat to
 // read it before the lockup morphs into the page. Each stage is its own number so the reveal can't drift.
 const SCATTER_MS = 3000 // dots fly in and settle (≈ slowest dot's staggered spring)
 // The cascade overlaps the scatter tail instead of waiting for it to fully finish.
-const WORDMARK_DELAY_MS = SCATTER_MS * 0.6
-// The lockup morphs down the moment the wordmark cascade finishes.
-const INTRO_MS = WORDMARK_DELAY_MS + wordmarkDurationMs(WORDMARK)
+const NAME_DELAY_MS = SCATTER_MS * 0.6
+// The lockup morphs down the moment the app name cascade finishes.
+const INTRO_MS = NAME_DELAY_MS + nameDurationMs(APP_NAME)
 // The lockup glides to the page while the veil stays opaque — content is hidden until it lands. A hair
 // longer than the morph's own duration (0.7s) so it fully settles before the veil dissolves.
 const MORPH_MS = 800
@@ -30,11 +30,11 @@ const SEEN_KEY = 'eggplant-brand-intro-seen'
 // Wrapped in try/catch because sessionStorage throws in some privacy modes — failing open = intro plays.
 const NO_FLASH_SCRIPT = `(function(){try{var forced=new URLSearchParams(location.search).has('intro');var seen=sessionStorage.getItem('${SEEN_KEY}');var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduced||(seen&&!forced))document.documentElement.dataset.brandIntro='skip';}catch(e){}})()`
 
-// Wraps a page to play the brand intro once and morph the splash lockup into that page's <BrandIntroLockup>.
+// Wraps a page to play the brand intro once and morph the splash into that page's <LogoWithName>.
 // Children stay server-rendered (passed through), so a server-component page can use this client boundary.
-export function BrandIntroProvider({ children }: { children: ReactNode }) {
+export function IntroProvider({ children }: { children: ReactNode }) {
   // Start 'idle' on both server and first client render so hydration matches; the effect then decides.
-  const [phase, setPhase] = useState<BrandIntroPhaseT>('idle')
+  const [phase, setPhase] = useState<IntroPhaseT>('idle')
 
   useEffect(() => {
     // The mount-time transition is intentional, not an avoidable cascading render: we MUST render 'idle'
@@ -80,7 +80,7 @@ export function BrandIntroProvider({ children }: { children: ReactNode }) {
   }, [phase])
 
   return (
-    <BrandIntroContext.Provider value={phase}>
+    <IntroContext.Provider value={phase}>
       {/* Must render before {children} so it executes before the page content is parsed/painted. */}
       <script dangerouslySetInnerHTML={{ __html: NO_FLASH_SCRIPT }} />
       {children}
@@ -102,22 +102,18 @@ export function BrandIntroProvider({ children }: { children: ReactNode }) {
         />
       )}
 
-      {/* Splash lockup — logo + wordmark, both carrying layoutIds so they morph down to the page copies
-          together (the wordmark stays under the logo). Above the veil (z-50) so it reads crisp through
+      {/* Splash lockup — logo + app name, both carrying layoutIds so they morph down to the page copies
+          together (the app name stays under the logo). Above the veil (z-50) so it reads crisp through
           the dissolve. Unmounts the instant we leave 'splash' so the shared-layoutId handoff is clean. */}
       {phase === 'splash' && (
         <div className="pointer-events-none fixed inset-0 z-50 flex flex-col items-center justify-center gap-6">
-          <motion.div layoutId="brand-logo" className="size-44 sm:size-60">
-            <AnimatedBrandLogo className="size-full" />
+          <motion.div layoutId="logo" className="size-44 sm:size-60">
+            <AnimatedLogo className="size-full" />
           </motion.div>
           {/* Start the cascade at 60% of the scatter — overlaps its tail, cuts the dead air. */}
-          <IntroWordmark
-            text={WORDMARK}
-            delay={WORDMARK_DELAY_MS / 1000}
-            layoutId="brand-wordmark"
-          />
+          <IntroName text={APP_NAME} delay={NAME_DELAY_MS / 1000} layoutId="name" />
         </div>
       )}
-    </BrandIntroContext.Provider>
+    </IntroContext.Provider>
   )
 }

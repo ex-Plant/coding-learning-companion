@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from 'framer-motion'
 
-// The brand wordmark revealed letter-by-letter during the splash — a framer-motion take on the
+// The brand app name revealed letter-by-letter during the splash — a framer-motion take on the
 // left-to-right cascade the portfolio does with GSAP + split-type (ScrambleText's CASCADE_DELAY_MS).
 // Each char is its own span so the container's staggerChildren walks them in sequence.
 
@@ -11,7 +11,7 @@ const LETTER_S = 0.4 // each letter's own fade-up
 
 // How long the full cascade takes once it starts, given the text. Exported so the intro can derive
 // its reveal timing from the real string instead of a hardcoded guess that drifts if the name changes.
-export function wordmarkDurationMs(text: string) {
+export function nameDurationMs(text: string) {
   return (text.length * STAGGER_S + LETTER_S) * 1000
 }
 
@@ -27,7 +27,7 @@ const letter: Variants = {
 
 // `delay` (seconds) holds the whole cascade until the dots have finished assembling. `layoutId` lets
 // the page copy morph from this one (the lockup travels down together with the logo).
-export function IntroWordmark({
+export function IntroName({
   text,
   delay = 0,
   layoutId,

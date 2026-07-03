@@ -1,15 +1,15 @@
 // The app's brand mark: the hand-drawn aubergine dot grid, coloured top→bottom along the brand neon
 // ramp, with a soft glow and a −3° left lean. Geometry (grid, ramp, dot positions) is shared with the
-// favicon via brand-mark-dots — this file owns the on-screen rendering (glow layer + lean).
+// favicon via logo-dots — this file owns the on-screen rendering (glow layer + lean).
 
 import { cn } from '@/lib/utils'
 
-import { buildBrandDots, DOT_R, VIEWBOX } from './brand-mark-dots'
+import { buildLogoDots, DOT_R, VIEWBOX } from './logo-dots'
 
 const GLOW = 0.9 // 0..1 bloom intensity
 
-export function BrandLogo({ className }: { className?: string }) {
-  const dots = buildBrandDots().map((d) => (
+export function Logo({ className }: { className?: string }) {
+  const dots = buildLogoDots().map((d) => (
     <circle key={`${d.cx}-${d.cy}`} cx={d.cx} cy={d.cy} r={d.r} fill={d.fill} />
   ))
 

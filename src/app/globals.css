@@ -13,6 +13,14 @@
   content: none;
 }
 
+/* Let wide GFM tables scroll horizontally instead of clipping on narrow (mobile) viewports. */
+.prose table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -41,7 +49,7 @@
   --color-neon-fuchsia: #d946ef;
   /* AI-accent glow for interactive affordances (e.g. accordion arrow hover) — generates `drop-shadow-neon-cyan`. */
   --drop-shadow-neon-cyan: 0 0 6px var(--color-neon-cyan);
-  /* BrandMark hover glow (logo + wordmark). The `-off` base is a same-blur *transparent* shadow so the
+  /* LogoLink hover glow (logo + app name). The `-off` base is a same-blur *transparent* shadow so the
      colour fades in instead of snapping from `filter: none`. Single shadow only — Tailwind wraps the
      value in one `drop-shadow()`, so a comma-stacked value compiles to invalid CSS. */
   --drop-shadow-glow-cyan-soft-off: 0 0 5px transparent;
@@ -354,7 +362,7 @@
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
-/* Brand-intro no-flash gate. The inline script in BrandIntroProvider sets data-brand-intro="skip" on
+/* Brand-intro no-flash gate. The inline script in IntroProvider sets data-brand-intro="skip" on
    <html> synchronously, before first paint, for returning-this-session / reduced-motion visitors. This
    hides the veil from the server HTML itself so those visitors never see a blank brand screen while the
    JS bundle loads. First-time visitors get the default (veil up) and the JS-driven intro. React unmounts

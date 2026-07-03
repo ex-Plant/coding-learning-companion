@@ -3,13 +3,13 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { AnimatedBrandLogo } from './animated-brand-logo'
-import { BrandLogo } from './brand-logo'
+import { AnimatedLogo } from './animated-logo'
+import { Logo } from './logo'
 
-export type BrandMarkPropsT = ComponentProps<typeof Link> & {
+export type LogoLinkPropsT = ComponentProps<typeof Link> & {
   size?: 'sm' | 'lg'
-  // Per-call wordmark tweaks — e.g. the desktop nav hides the text below `lg`.
-  wordmarkClassName?: string
+  // Per-call app name tweaks — e.g. the desktop nav hides the text below `lg`.
+  nameClassName?: string
   // Opt in to the scatter-entrance logo (the marketing variant) in place of the static mark.
   animated?: boolean
 }
@@ -22,14 +22,14 @@ const TEXT_SIZE = { sm: 'text-sm md:text-base', lg: 'text-2xl md:text-3xl' } as 
 const GLOW =
   'drop-shadow-glow-cyan-soft-off group-hover:drop-shadow-glow-cyan-soft transition duration-300'
 
-export function BrandMark({
+export function LogoLink({
   size = 'sm',
   className,
-  wordmarkClassName,
+  nameClassName,
   animated = false,
   ...props
-}: BrandMarkPropsT) {
-  const Logo = animated ? AnimatedBrandLogo : BrandLogo
+}: LogoLinkPropsT) {
+  const LogoIcon = animated ? AnimatedLogo : Logo
   // The mark is always a link, so the hover affordance + transition are always on.
   return (
     <Link
@@ -37,8 +37,8 @@ export function BrandMark({
       className={cn('group flex shrink-0 items-center gap-1', className)}
       {...props}
     >
-      <Logo className={cn(LOGO_SIZE[size], GLOW)} />
-      <span className={cn(GLOW, 'font-mono font-semibold', TEXT_SIZE[size], wordmarkClassName)}>
+      <LogoIcon className={cn(LOGO_SIZE[size], GLOW)} />
+      <span className={cn(GLOW, 'font-mono font-semibold', TEXT_SIZE[size], nameClassName)}>
         eggplant_notes
       </span>
     </Link>

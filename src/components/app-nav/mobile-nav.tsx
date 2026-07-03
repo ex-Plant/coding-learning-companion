@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { ArrowLeftIcon, MenuIcon, RefreshCwIcon, XIcon } from 'lucide-react'
 
-import { BrandMark } from '@/components/brand/brand-mark'
+import { LogoLink } from '@/components/logo/logo-link'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { useIsStandalone } from '@/hooks/use-is-standalone'
@@ -59,7 +59,7 @@ export function MobileNav({
         </SheetClose>
         {/* Brand sits on the same row as the close button (top-4) — not styled as an interactive nav item. */}
         <SheetClose asChild>
-          <BrandMark href="/dashboard" className="absolute top-4 left-4 h-7" />
+          <LogoLink href="/dashboard" className="absolute top-4 left-4 h-7" />
         </SheetClose>
         <nav className="flex h-full flex-col gap-1 p-4 pt-16">
           {isStandalone && (

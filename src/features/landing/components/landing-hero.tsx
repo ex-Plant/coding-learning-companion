@@ -1,7 +1,7 @@
-import { BrandIntroLockup } from '@/components/brand/brand-intro-lockup'
+import { LogoWithName } from '@/components/logo/logo-with-name'
 import { LandingShell } from '@/features/landing/components/landing-shell'
 
-// Only the logo lockup animates (it morphs out of the splash). The copy is plain, static content —
+// Only the logo + name animates (it morphs out of the splash). The copy is plain, static content —
 // hidden under the intro veil like every other section and revealed all at once when the veil dissolves.
 export function LandingHero() {
   // No overflow-hidden on the section: the morphing logo starts big at viewport-center (outside this
@@ -9,7 +9,7 @@ export function LandingHero() {
   return (
     <section className="relative">
       <LandingShell as="div" className="flex flex-col items-center gap-6 text-center">
-        <BrandIntroLockup />
+        <LogoWithName />
         <h1 className="font-heading max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl">
           <span className="from-neon-green via-neon-cyan to-neon-fuchsia bg-linear-to-r bg-clip-text text-transparent">
             Wired for recall
