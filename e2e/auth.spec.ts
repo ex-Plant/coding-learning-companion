@@ -73,6 +73,20 @@ test('4.5 authenticated user hitting /sign-in is redirected to /dashboard', asyn
   await expectDashboard(page)
 })
 
+test('4.6 unauthenticated / dispatches to the /home landing', async ({ page }) => {
+  await page.goto('/')
+  await expect(page).toHaveURL('/home')
+})
+
+test('4.7 authenticated / dispatches to /dashboard', async ({ page }) => {
+  const email = uniqueEmail()
+  await signUp(page, email)
+  await expectDashboard(page)
+
+  await page.goto('/')
+  await expectDashboard(page)
+})
+
 test('3.7 password reset round trip via Mailpit', async ({ page }) => {
   const email = uniqueEmail()
   await signUp(page, email)

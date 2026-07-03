@@ -7,11 +7,7 @@ import { SUPABASE_ANON_KEY, SUPABASE_URL } from '@/lib/env'
 // bouncing a signed-in user off it would trap them on the page they need.
 const AUTH_ROUTES = ['/sign-in', '/sign-up', '/reset-password']
 
-// Public, viewable signed-out: /logo is a brand-exploration gallery (no user data); the rest are
-// generated brand-asset metadata routes the browser fetches unauthenticated — the PWA manifest
-// (gating it breaks "Add to Home Screen"), the apple-touch icon, and the favicon. None end in a
-// static extension, so the matcher below can't exclude them; they're allowed through the gate here.
-const PUBLIC_ASSET_ROUTES = ['/logo', '/manifest.webmanifest', '/apple-icon', '/icon']
+const PUBLIC_ASSET_ROUTES = ['/manifest.webmanifest', '/apple-icon', '/icon']
 
 // Exact match or true subpath — NOT a bare prefix, so `/sign-in-evil` can't slip through.
 function matchesPath(pathname: string, route: string) {
@@ -28,8 +24,7 @@ function redirectTo(pathname: string, request: NextRequest, response: NextRespon
   return redirect
 }
 
-// Next.js 16 renamed `middleware` -> `proxy`. Refreshes the Supabase session cookie on every
-// matched request and gates protected paths.
+// Refreshes the Supabase session cookie on every matched request and gates protected paths.
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request })
 
@@ -55,6 +50,9 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   const { pathname } = request.nextUrl
+
+  if (pathname === '/') return redirectTo(user ? '/dashboard' : '/home', request, response)
+
   const isAuthRoute = AUTH_ROUTES.some((route) => matchesPath(pathname, route))
   // Every /api/* route self-enforces auth in its handler and must answer with JSON, never a 307 to the
   // HTML sign-in page — so the proxy refreshes their cookie but never gates them. Token routes
@@ -63,15 +61,15 @@ export async function proxy(request: NextRequest) {
   // itself via getCurrentUser. update-password is reached via a recovery session, so it stays public too.
   const isPublic =
     isAuthRoute ||
-    pathname === '/' || // the public landing page — viewable signed-out, never bounced to /sign-in
+    pathname === '/home' ||
     pathname.startsWith('/api/') ||
     matchesPath(pathname, '/update-password') ||
     PUBLIC_ASSET_ROUTES.some((route) => matchesPath(pathname, route))
 
   // Optimistic gate; the (protected) layout is the authoritative backstop.
   if (!user && !isPublic) return redirectTo('/sign-in', request, response)
-  // Signed-in visitors on the auth screens go straight to the app; the landing (`/`) stays viewable
-  // by everyone, signed-in or not.
+
+  // Signed-in visitors on the auth screens go straight to the app
   if (user && isAuthRoute) return redirectTo('/dashboard', request, response)
 
   return response

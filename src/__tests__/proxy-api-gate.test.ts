@@ -36,6 +36,17 @@ describe('proxy /api gate', () => {
   })
 })
 
+// `/` is a pure dispatcher: signed-out → the /home landing (this mock has no user), signed-in →
+// /dashboard (covered by E2E). It must NOT bounce a signed-out visitor to /sign-in — the landing is
+// public.
+describe('proxy root dispatcher', () => {
+  it('redirects an unauthenticated / to the public /home landing, not /sign-in', async () => {
+    const res = await proxy(reqFor('/'))
+    expect(res.status).toBe(307)
+    expect(new URL(res.headers.get('location') ?? '').pathname).toBe('/home')
+  })
+})
+
 // The browser fetches these unauthenticated to decide PWA installability; gating them to /sign-in
 // silently breaks "Add to Home Screen". Guards against a future proxy edit re-gating them.
 describe('proxy public brand-asset routes', () => {
