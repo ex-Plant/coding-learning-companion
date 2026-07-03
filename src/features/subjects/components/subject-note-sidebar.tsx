@@ -1,7 +1,6 @@
 'use client'
 
 import { type DragEndEvent } from '@dnd-kit/core'
-import { arrayMove } from '@dnd-kit/sortable'
 import { ListIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
@@ -13,7 +12,7 @@ import { reorderNote } from '@/features/subjects/actions/reorder-note'
 import { FilteredNoteList } from '@/features/subjects/components/filtered-note-list'
 import { SidebarFilter } from '@/features/subjects/components/sidebar-filter'
 import { SortableNoteList } from '@/features/subjects/components/sortable-note-list'
-import { midpoint } from '@/features/subjects/utils/midpoint'
+import { computeReorderPosition } from '@/features/subjects/utils/compute-reorder-position'
 import type { SubjectNoteSummaryT } from '@/features/subjects/types'
 import { useActionTransition } from '@/hooks/use-action-transition'
 
@@ -63,13 +62,7 @@ export function SubjectNoteSidebar({ subjectId, notes }: SubjectNoteSidebarProps
     if (!over || active.id === over.id) return
     const oldIndex = items.findIndex((i) => i.id === active.id)
     const newIndex = items.findIndex((i) => i.id === over.id)
-    const reordered = arrayMove(items, oldIndex, newIndex)
-    const position = midpoint(
-      reordered[newIndex - 1]?.position ?? undefined,
-      reordered[newIndex + 1]?.position ?? undefined,
-      items[oldIndex].position ?? 0,
-    )
-    reordered[newIndex] = { ...reordered[newIndex], position }
+    const { reordered, position } = computeReorderPosition(items, oldIndex, newIndex)
 
     const previous = items
     setItems(reordered)
