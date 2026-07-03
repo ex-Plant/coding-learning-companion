@@ -54,8 +54,13 @@ export function AiCardGenerator({
     )
   }
 
+  // Route through updateCandidates (not setCandidates) so emptying the list collapses the panel and
+  // fires the reviewing signal — mirrors saveOne. Otherwise a []-but-truthy list strands the user in
+  // an empty review panel with the parent's "Add card" button still hidden.
   function remove(index: number) {
-    setCandidates((prev) => prev?.filter((_, i) => i !== index) ?? null)
+    if (!candidates) return
+    const next = candidates.filter((_, i) => i !== index)
+    updateCandidates(next.length > 0 ? next : null)
   }
 
   function save() {
